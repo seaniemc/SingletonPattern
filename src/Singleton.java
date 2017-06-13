@@ -35,9 +35,18 @@ public class Singleton {
                     e.printStackTrace();
                 }
             }
-            firstInstance = new Singleton();
 
-            Collections.shuffle(firstInstance.letterList);
+            synchronized (Singleton.class){
+                if(firstInstance == null) {
+                    // If the instance isn't needed it isn't created
+                    // This is known as lazy instantiation
+
+                    firstInstance = new Singleton();
+
+                    Collections.shuffle(firstInstance.letterList);
+                }
+            }
+
         }
 
         return firstInstance;
